@@ -1,0 +1,30 @@
+.video-container {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    flex-shrink: 0; /* 防止视频项目被压缩 */
+}
+
+video {
+   margin: 0;
+   padding: 0;
+}
+
+.video-caption-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* 确保宽度与父容器一致 */
+    height: 100%;
+}
+
+/* 添加视频播放器样式 */
+.video-player {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+}

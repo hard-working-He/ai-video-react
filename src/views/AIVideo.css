@@ -1,0 +1,81 @@
+/* Ant Design customizations */
+.ant-layout.home-container {
+  min-height: 100vh;
+}
+
+/* Logo styles */
+.logo-container {
+  padding: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-left: 8px;
+}
+
+/* Menu customizations */
+.ant-menu.menu-container {
+  border-right: none;
+}
+
+.ant-menu-item {
+  font-size: 14px;
+  height: 48px;
+  line-height: 48px;
+}
+
+.ant-menu-item .anticon {
+  font-size: 16px;
+}
+
+/* Header styles */
+.ant-layout-header.header {
+  height: auto;
+  padding: 16px 20px;
+  background: #fff;
+  border-bottom: 1px solid #e9ecef;
+  line-height: 1.5;
+}
+
+/* Content styles */
+.ant-layout-content.video-section {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.video-list-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.input-section {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+  .ant-layout.home-container {
+    flex-direction: column;
+  }
+
+  .ant-layout-sider.sidebar {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: none !important;
+    display: none;
+  }
+
+  .ant-layout-content {
+    padding: 10px !important;
+  }
+} 
+.video-list-wrapper{
+  min-height: 70vh;
+}

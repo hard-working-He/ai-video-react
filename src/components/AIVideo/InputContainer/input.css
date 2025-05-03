@@ -1,0 +1,109 @@
+/* .video-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.video-placeholder {
+  padding: 20px;
+  text-align: center;
+  color: #666;
+  font-size: 16px;
+}
+
+.error-message {
+  color: #ff4d4f;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.loading {
+  color: #1890ff;
+  margin-top: 10px;
+  text-align: center;
+} */
+
+.input-container {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  gap: 15px;
+}
+
+.input-type-selector {
+  margin-bottom: 15px;
+}
+
+.input-content {
+  width: 100%;
+}
+
+.input-container input {
+  flex: 1;
+  height: 40px;
+  font-size: 16px;
+  padding: 0 10px;
+}
+
+.image-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.avatar-uploader {
+  margin-top: 10px;
+}
+
+.avatar-uploader .ant-upload-select-picture-card {
+  width: 100%;
+  max-width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.upload-hint {
+  color: #888;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.error-message {
+  color: #ff4d4f;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .input-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+  }
+  
+  .avatar-uploader .ant-upload-select-picture-card {
+    width: 100%;
+    max-width: 150px;
+    height: 150px;
+  }
+}
+
+.input-row{
+  height: 100px;
+}

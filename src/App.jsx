@@ -1,16 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Home from './views/Home';
-function App() {
-  const [count, setCount] = useState(0)
+import React from 'react';
+import './App.css';
+import { RouterProvider } from 'react-router-dom';
+import router from './router/route.jsx';
 
+function App() {
+  console.log('App组件已渲染');
+  
   return (
-    <>
-      <Home />
-    </>
-  )
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  );
 }
 
-export default App
+export default App;

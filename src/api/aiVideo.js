@@ -1,5 +1,6 @@
 import { apiKey } from './apiKey';
-
+import { useGlobalLoading } from '../hooks/useLoading';
+import { post } from './request';
 /**
  * 创建AI视频生成任务
  * @param {Object} params - 请求参数
@@ -14,28 +15,40 @@ import { apiKey } from './apiKey';
  * @param {string} [params.user_id] - 终端用户唯一ID
  * @returns {Promise<Object>} - 返回包含任务ID等信息的响应
  */
-export const generateAIVideo = async (prompt) => {
+export const generateAIVideo = async (prompt, imageUrl) => {
   const url = 'https://open.bigmodel.cn/api/paas/v4/videos/generations';
   
-  if (!prompt) {
-    throw new Error('prompt不能为空');
+  // 检查输入：prompt 和 imageUrl 至少需要提供一个
+  if (!prompt && !imageUrl) {
+    throw new Error('提示词和图片URL至少需要提供一个');
   }
   
   try {
+    // 准备请求体
+    const requestBody = {
+      model: 'cogvideox-2',
+      quality: "quality", 
+      with_audio: true,
+      size: "1920x1080",  
+      fps: 30,
+    };
+    
+    // 添加 prompt 或 imageUrl (或两者)
+    if (prompt) {
+      requestBody.prompt = prompt;
+    }
+    
+    if (imageUrl) {
+      requestBody.image_url = imageUrl;
+    }
+    
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': apiKey
       },
-      body: JSON.stringify({
-        prompt,
-        model: 'cogvideox-2',
-        quality: "quality", 
-        with_audio: true,
-        size: "1920x1080",  
-        fps: 30, 
-      })
+      body: JSON.stringify(requestBody)
     });
     
     if (!response.ok) {
@@ -82,4 +95,10 @@ export const queryAIVideoTask = async (taskId) => {
     console.error('查询AI视频任务出错:', error);
     throw error;
   }
+};
+
+export const getAIVideoList = async () => {
+  const url = '/api/v1/videos/videolists';
+  const response = await post(url, {});
+  return response.data;
 };

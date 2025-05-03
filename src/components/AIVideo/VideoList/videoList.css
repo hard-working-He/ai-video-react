@@ -1,0 +1,8 @@
+.video-list-container {
+    display: flex;
+    width: 100%;
+    min-width: max-content; /* 确保容器至少与其内容一样宽 */
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow-x: auto; /* 允许水平滚动 */
+}
