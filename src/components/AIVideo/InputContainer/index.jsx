@@ -1,15 +1,15 @@
 import { Input, Button, Upload, message, Row, Col, Space } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { UploadOutlined, SendOutlined, PlusOutlined } from "@ant-design/icons";
 import "./input.css";
 import { useVideoGenerationStore } from "../../../store/videoGeneration";
 import { generateAIVideo } from "../../../api/aiVideo";
 import getBase64 from "../../../utils/image";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const InputContainer = () => {
   const { prompt, setPrompt, setTaskId, error: storeError, setError, imageUrl, setImageUrl } = useVideoGenerationStore();
   const [loading, setLoading] = useState(false);
-
+  const [hasImage, setHasImage] = useState(false);
   const handleGenerate = async () => {
     if (!prompt.trim()) {
       setError("请输入提示词");
@@ -36,6 +36,7 @@ const InputContainer = () => {
   const handleChange = (info) => {
     if (info.file.status === 'uploading') {
       setLoading(true);
+
       return;
     }
     if (info.file.status === 'done') {
@@ -46,27 +47,36 @@ const InputContainer = () => {
       });
     }
   };
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+  };
+  const uploadButton = (
+    <button style={{ border: 0, background: 'none' }} type="button">
+      <PlusOutlined />
+      <div style={{ marginTop: 8 }}>Upload</div>
+    </button>
+  );
+
   return (
-    <div className="input-container">
+    <div className="input-container" style={{ 
+      background: 'white', 
+      borderRadius: '12px',
+      padding: '2px',
+      boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.05)'
+    }}>
       {/* 第一行：上传组件和输入框 */}
-      <Row gutter={16} className="input-row">
-        <Col>
+      <Row gutter={16} className="input-row" align="middle">
+        <Col span={4}>
           <Upload
-            name="avatar"
+            action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
             listType="picture-card"
-            className="avatar-uploader"
-            showUploadList={false}
             beforeUpload={beforeUpload}
+            onPreview={handlePreview}
             onChange={handleChange}
-          >
-            {imageUrl ? (
-              <img src={imageUrl} alt="avatar" style={{ width: '100%' }} />
-            ) : (
-              <div>
-                {loading ? 'Loading...' : <UploadOutlined />}
-                <div style={{ marginTop: 8 }}>上传图片</div>
-              </div>
-            )}
+          > 
+            {imageUrl ? null : uploadButton}
           </Upload>
         </Col>
         <Col flex="1">
@@ -80,25 +90,19 @@ const InputContainer = () => {
             style={{ 
               background: 'transparent',
               border: 'none',
-              boxShadow: 'none'
+              boxShadow: 'none',
+              fontSize: '16px',
+              color: '#333',
+              marginTop: 0
             }}
           />
         </Col>
       </Row>
       
       {/* 第二行：参数组件和发送按钮 */}
-      <Row gutter={16} className="controls-row" style={{ marginTop: 1 }}>
+      <Row gutter={16} className="controls-row" style={{ marginTop: 16 }} align="middle">
         <Col flex="1">
-          <Space>
-            {/* 基础参数组件（待开发） */}
-            <Button type="text" icon={<span>基础参数</span>} />
-            
-            {/* 其他参数按钮可以在这里添加 */}
-            <Button type="text" icon={<span>5s</span>} />
-            <Button type="text" icon={<span>AI音效(关)</span>} />
-            <Button type="text" icon={<span>去水印(关)</span>} />
-            <Button type="text" icon={<span>AI特效</span>} />
-          </Space>
+
         </Col>
         <Col>
           <Button 
@@ -106,7 +110,12 @@ const InputContainer = () => {
             shape="circle" 
             size="large"
             onClick={handleGenerate}
-            icon={<span>➤</span>}
+            icon={<SendOutlined />}
+            style={{ 
+              background: '#000', 
+              borderColor: '#000',
+              boxShadow: 'none'
+            }}
           />
         </Col>
       </Row>
