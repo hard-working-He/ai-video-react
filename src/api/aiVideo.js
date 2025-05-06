@@ -15,7 +15,7 @@ import { post } from './request';
  * @param {string} [params.user_id] - 终端用户唯一ID
  * @returns {Promise<Object>} - 返回包含任务ID等信息的响应
  */
-export const generateAIVideo = async (prompt, imageUrl) => {
+export const generateAIVideo = async (prompt, imageUrl, ratio, frameRate, outputMode) => {
   const url = 'https://open.bigmodel.cn/api/paas/v4/videos/generations';
   
   // 检查输入：prompt 和 imageUrl 至少需要提供一个
@@ -27,10 +27,10 @@ export const generateAIVideo = async (prompt, imageUrl) => {
     // 准备请求体
     const requestBody = {
       model: 'cogvideox-2',
-      quality: "quality", 
+      quality: outputMode === 'quality' ? "quality" : "speed" , 
       with_audio: true,
-      size: "1920x1080",  
-      fps: 30,
+      size: "1920x1080",
+      fps: Number(frameRate)===30 ? 30 : 60,
     };
     
     // 添加 prompt 或 imageUrl (或两者)

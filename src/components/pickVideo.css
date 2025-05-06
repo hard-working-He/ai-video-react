@@ -1,0 +1,115 @@
+/* Convert this to a CSS file or use a CSS-in-JS solution like styled-components */
+.maxline {
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    white-space: normal;
+  }
+  
+  .panel {
+    position: relative;
+    width: 75px;
+    height: 75px;
+    box-sizing: border-box;
+    border-radius: 10px;
+  }
+  
+  .uploader {
+    display: flex;
+    width: 75px;
+    height: 75px;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+    border: 1px dashed var(--txt-icon-grey-360, rgba(79, 88, 102, 0.6));
+    background: var(--hover-icon-grey-16, rgba(79, 88, 102, 0.06));
+    cursor: pointer;
+  }
+  
+  .upload-icon:hover {
+    color: #2454ff;
+  }
+  
+  .dark {
+    color: var(--txt_icon_black_2);
+  }
+  
+  .uploader:hover {
+    border-radius: 10px;
+    border: 1px dashed var(--txt_stroke_blue_1, #5383ff);
+    background: rgba(36, 84, 255, 0.06);
+  }
+  
+  .uploader:hover .upload-icon {
+    color: #2454ff;
+  }
+  
+  .drag_hover {
+    border-radius: 10px;
+    border: 1px dashed var(--txt_stroke_blue_1, #5383ff);
+  }
+  
+  .preview-box {
+    width: 75px;
+    height: 75px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  
+  .preview-box:hover {
+    background: rgba(26, 27, 28, 0.5);
+  }
+  
+  .preview {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .preview-long {
+    border-radius: 10px;
+  }
+  
+  .delete-box {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: -5px;
+    top: -5px;
+    width: 15.429px;
+    height: 15.429px;
+    border-radius: 50%;
+    background: rgba(26, 27, 28, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+  }
+  
+  .delete-box .text {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 18px;
+  }
+  
+  .delete-box .icon {
+    width: 16px;
+    height: 16px;
+    background: url('~@/assets/images/video/delete_ic.png') no-repeat;
+    background-size: cover;
+  }
+  
+  .close-btn {
+    color: #fff;
+    cursor: pointer;
+    font-size: 10px;
+  }

@@ -10,6 +10,7 @@ import { useRef, useEffect, useState, forwardRef, useImperativeHandle } from "re
 import debounce from "lodash/debounce";
 import "./video.css";
 import usePolling from "../../../hooks/usePolling";
+import { useAIVideo } from '../../../context/AIVideoContext';
 
 const VideoItem = forwardRef(({ 
   videoUrl, 
@@ -25,6 +26,7 @@ const VideoItem = forwardRef(({
   const playerRef = useRef(null);
   const audioRef = useRef(null);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const { handleDownload } = useAIVideo();
 
   // Calculate video size based on window and container dimensions
   const calcVideoSize = () => {
@@ -63,9 +65,8 @@ const VideoItem = forwardRef(({
       window.removeEventListener('resize', calcVideoSizeDebounce);
     };
   }, [ratio]);
-  const handleDownload = () => {
-    const processedUrl = videoUrl?.split(".cn")[1]?.replace("api", "zhipu");
-    downloadTool(processedUrl, 'video.mp4');
+  const onDownload = () => {
+    handleDownload(videoUrl);
   } 
   // Handle video play/pause
   const handleVideoPlay = () => {
@@ -155,7 +156,7 @@ const VideoItem = forwardRef(({
               <button className="action-button">
                 <SoundOutlined />
               </button>
-              <button className="action-button" onClick={handleDownload} >
+              <button className="action-button" onClick={onDownload} >
                 <DownloadOutlined />
               </button>
               <button className="action-button">
