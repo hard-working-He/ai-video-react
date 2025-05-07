@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useCallback } from 'react';
 import { useVideoGenerationStore } from '../store/videoGeneration';
-import { generateAIVideo } from '../api/aiVideo';
-import { downloadTool } from '../utils/downloadVideo'; // 确保您有这个下载工具函数
+import { generateAIVideo, addAIVideo } from '../api/aiVideo';
+import { downloadTool } from '../utils/downloadVideo';
 import { useBasicSettingsStore } from '../store/videoParams';
 // 创建 Context
 const AIVideoContext = createContext(null);
@@ -27,9 +27,19 @@ export const AIVideoProvider = ({ children }) => {
       console.log('正在生成AI视频，提示词:', prompt, '图片URL:', imageUrl);
       const taskId = await generateAIVideo(prompt, imageUrl, frameRate, outputMode);
       setTaskId(taskId);
+      
+      // 调用 addAIVideo 接口
+      await addAIVideo({
+        task_id: taskId,
+        creation_params: prompt,
+        status: 'PROCESSING'
+      });
+      
       setError(null);
       // 清空输入框
       setPrompt('');
+      setOriginFile(null);
+      
     } catch (err) {
       console.error("生成错误:", err);
       setError("视频生成失败，请重试");

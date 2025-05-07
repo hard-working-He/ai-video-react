@@ -1,6 +1,7 @@
+import ChatGLMContainer from '../components/ChatGLM/container';
 const AIChat = () => {
     return (
-        <div>AIChat</div>
+        <ChatGLMContainer />
     )
 }
 

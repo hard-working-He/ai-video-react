@@ -97,8 +97,43 @@ export const queryAIVideoTask = async (taskId) => {
   }
 };
 
+
+//获取AI视频列表  
 export const getAIVideoList = async () => {
   const url = '/api/v1/videos/videolists';
   const response = await post(url, {});
   return response.data;
 };
+/* 
+增加新视频，在generateAIVideo返回的taskId后，增加新视频 
+状态：PROCESSING（处理中），SUCCESS（成功），FAIL（失败）
+参数：
+{
+  "task_id": "1234567890",
+  "creation_params": "狗"
+  "status": "PROCESSING",
+}
+   */
+export const addAIVideo = async (params) => {
+  const url = '/api/v1/videos/newvideo';
+  const response = await post(url, params);
+  return response.data;
+};
+
+/* 
+更新视频状态和filePath
+
+参数：
+{
+  "task_id": "1234567890",
+  "status": "SUCCESS",
+  "file_path": "/path/to/video/file.mp4"
+}
+ */
+export const updateAIVideo = async (params) => {
+  const url = '/api/v1/videos/update';
+  const response = await post(url, params);
+  return response.data;
+};
+
+

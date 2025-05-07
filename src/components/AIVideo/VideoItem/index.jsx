@@ -13,8 +13,10 @@ import usePolling from "../../../hooks/usePolling";
 import { useAIVideo } from '../../../context/AIVideoContext';
 
 const VideoItem = forwardRef(({ 
+  status,
   videoUrl, 
   coverUrl, 
+  creation_params,
   taskId, 
   isPolling, 
   isLoading, 
@@ -123,16 +125,29 @@ const VideoItem = forwardRef(({
 
   return (
     <div className="video-container">
-      {videoUrl && (
-        <>
+      {status === 'PROCESSING' ? (
+        <div className="processing-status">
+          <div className="processing-content">
+            <div className="processing-title">排队中...</div>
+            <div className="processing-subtitle">AI正在努力工作中，预计排队4分钟</div>
+            <button className="boost-button">
+              给AI加速 🚀
+            </button>
+          </div>
+          <div className="processing-caption">[文生] {creation_params}</div>
+        </div>
+      ) : status === 'SUCCESS' && videoUrl ? (
+        <div className="success-status">
           <video
             ref={playerRef}
             src={videoUrl}
             poster={coverUrl}
-            controls
-            autoPlay
-            loop
             preload="auto"
+            controls
+            loop
+            muted
+            autoPlay
+            playsInline
             className={`video-player ${ratio > 1 ? 'video-player-w' : 'video-player-h'} ${audioUrl ? 'merge' : ''}`}
             onPlay={handleVideoPlay}
             onPause={handleVideoPause}
@@ -146,26 +161,9 @@ const VideoItem = forwardRef(({
               style={{ display: 'none' }}
             />
           )}
-          {/* Caption container */}
-          <div className="video-caption-container">
-            <div className="video-caption">{caption}</div>
-            <div className="video-actions">
-              <button className="action-button">
-                <CustomerServiceOutlined />
-              </button>
-              <button className="action-button">
-                <SoundOutlined />
-              </button>
-              <button className="action-button" onClick={onDownload} >
-                <DownloadOutlined />
-              </button>
-              <button className="action-button">
-                <EllipsisOutlined />
-              </button>
-            </div>
-          </div>
-        </>
-      )}
+          <div className="processing-caption">[文生] {creation_params}</div>
+        </div>
+      ) : null}
     </div>
   );
 });

@@ -16,7 +16,7 @@ const SiderBar = () => {
     }, [location, currentPath]);
     
     const menuItems = [
-        { key: 'ai-chat', label: 'ChatGLM', icon: <CommentOutlined /> },
+        { key: 'ai-chat', label: 'AI搜索', icon: <CommentOutlined /> },
         { key: 'ai-reading', label: 'AI阅读', icon: <ReadOutlined /> },
         { key: 'ai-video', label: 'AI视频', icon: <VideoCameraOutlined /> }/* ,
         { key: 'search', label: 'AI搜索', icon: '🔍' },

@@ -1,0 +1,224 @@
+.aisearch-frontpage-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 40px;
+  width: calc(100% - 200px);
+  height: 100%;
+}
+
+.aisearch-frontpage-container .star {
+  width: 24px;
+  height: 24px;
+  background-image: url('~@/assets/image/glms/recommend-star.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  flex: 0 0 24px;
+}
+
+.aisearch-frontpage-container .video-container {
+  position: absolute;
+  top: 0;
+  left: 230px;
+  width: calc(100% - 230px);
+  height: 100%;
+  overflow: hidden;
+}
+
+.aisearch-frontpage-container .video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+}
+
+.aisearch-frontpage-container .agent-introduction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 11px;
+  z-index: 1;
+}
+
+.aisearch-frontpage-container .agent-introduction .agent-name {
+  color: var(--txt_icon_black_1, #1a2029);
+  text-align: center;
+  font-family: 'PingFang SC';
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 36px;
+}
+
+.aisearch-frontpage-container .agent-introduction .agent-description {
+  color: var(--txt_icon_black_2, #4f5866);
+  text-align: center;
+  font-family: 'PingFang SC';
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+  letter-spacing: 0.36px;
+}
+
+.aisearch-frontpage-container .news-star-container {
+  position: absolute;
+  display: flex;
+  gap: 15px;
+  height: 50px;
+}
+
+.aisearch-frontpage-container .news-star-container:hover {
+  cursor: pointer;
+}
+
+.aisearch-frontpage-container .news-star-container .recommend-title:hover {
+  animation: borderGradient 3s linear infinite;
+}
+
+.aisearch-frontpage-container .news-star-container:nth-of-type(7) {
+  left: 10%;
+  bottom: 35%;
+}
+
+.aisearch-frontpage-container .news-star-container:nth-of-type(8) {
+  right: 10%;
+  bottom: 30%;
+}
+
+.aisearch-frontpage-container .news-star-container:nth-of-type(9) {
+  left: 20%;
+  top: 10%;
+}
+
+.aisearch-frontpage-container .news-star-container:nth-of-type(10) {
+  right: 10%;
+  top: 30%;
+}
+
+.aisearch-frontpage-container .star-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aisearch-frontpage-container .star-container:hover {
+  cursor: pointer;
+}
+
+.aisearch-frontpage-container .star-container .out-circle {
+  background: rgba(22, 76, 255, 0.2);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  animation: pulseExpand 2s infinite;
+  transform-origin: center;
+  position: absolute;
+}
+
+.aisearch-frontpage-container .star-container .inner-star {
+  animation: pulseCenter 1s infinite;
+  transform-origin: center;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-image: url('~@/assets/image/glms/recommend-star.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.aisearch-frontpage-container .star-container .none-animation {
+  animation: none;
+}
+
+.aisearch-frontpage-container .recommend-item {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.aisearch-frontpage-container .recommend-item:nth-of-type(2) {
+  left: 7%;
+  top: 20%;
+}
+
+.aisearch-frontpage-container .recommend-item:nth-of-type(3) {
+  right: 10%;
+  top: 10%;
+}
+
+.aisearch-frontpage-container .recommend-item:nth-of-type(4) {
+  left: 30%;
+  bottom: 27%;
+}
+
+.aisearch-frontpage-container .recommend-item:nth-of-type(5) {
+  left: 10%;
+  bottom: 10%;
+}
+
+.aisearch-frontpage-container .recommend-item:nth-of-type(6) {
+  right: 15%;
+  bottom: 18%;
+}
+
+.aisearch-frontpage-container .recommend-item:hover {
+  cursor: pointer;
+}
+
+.aisearch-frontpage-container .recommend-item .recommend-title:hover {
+  animation: borderGradient 3s linear infinite;
+}
+
+.aisearch-frontpage-container .recommend-title {
+  border-radius: 12px;
+  border: 1px solid var(--hover-icon-grey-28, rgba(79, 88, 102, 0.08));
+  box-shadow: 0px 4.007px 12.022px 0px rgba(17, 49, 95, 0.04);
+  padding: 14px 16px;
+  background: var(--bg_pop_white_1, #fff);
+  overflow: hidden;
+  color: var(--txt_icon_black_1, #1a2029);
+  text-overflow: ellipsis;
+  font-family: 'PingFang SC';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  max-width: 300px;
+}
+
+@keyframes pulseExpand {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.875);
+    opacity: 0;
+  }
+}
+
+@keyframes pulseCenter {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1667);
+  }
+}
+
+@keyframes borderGradient {
+  0% {
+    border-color: #5b59fa;
+  }
+  50% {
+    border-color: #46dcd4;
+  }
+  100% {
+    border-color: #5b59fa;
+  }
+}

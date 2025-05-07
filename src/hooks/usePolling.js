@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { queryAIVideoTask } from "../api/aiVideo";
+import { queryAIVideoTask, updateAIVideo } from "../api/aiVideo";
 import { useVideoGenerationStore } from "../store/videoGeneration";
 const POLLING_INTERVAL = 3000; // 轮询间隔时间（毫秒）
 
@@ -36,6 +36,19 @@ export default function usePolling(taskId) {
           console.log("获取到视频URL:", url);
           setAiVideoUrl(url);
           setCoverUrl(cover_image_url);
+
+          // 调用更新视频状态和filePath的接口
+          try {
+            await updateAIVideo({
+              task_id: taskId,
+              status: "SUCCESS",
+              file_path: url
+            });
+            console.log("视频状态和filePath更新成功");
+          } catch (updateErr) {
+            console.error("更新视频状态和filePath失败:", updateErr);
+            // 这里我们不设置错误状态，因为视频URL已经成功获取
+          }
 
           setError(null);
           setIsLoading(false);

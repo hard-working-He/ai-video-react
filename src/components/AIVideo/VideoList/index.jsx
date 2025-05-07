@@ -23,9 +23,10 @@ export const VideoList = ({ urlList }) => {
       {urlList && urlList.length > 0 ? (
         urlList.map((item) => (
           <VideoItem 
+            status={item.status}
             key={item.id} 
             videoUrl={item.file_path}
-            
+            creation_params={item.creation_params}
           />
         ))
       ) : (
