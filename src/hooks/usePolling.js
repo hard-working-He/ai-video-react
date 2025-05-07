@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { queryAIVideoTask, updateAIVideo } from "../api/aiVideo";
+import { queryAIVideoTask, updateAIVideo, getAIVideoList } from "../api/aiVideo";
 import { useVideoGenerationStore } from "../store/videoGeneration";
 const POLLING_INTERVAL = 3000; // 轮询间隔时间（毫秒）
 
@@ -8,7 +8,7 @@ export default function usePolling(taskId) {
   const [isPolling, setIsPolling] = useState(false);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const { setAiVideoUrl ,setCoverUrl} = useVideoGenerationStore();
+  const { setAiVideoUrl, setCoverUrl, setVideoList } = useVideoGenerationStore();
   useEffect(() => {
     if (!taskId) {
       stopPolling();
@@ -54,8 +54,13 @@ export default function usePolling(taskId) {
           setIsLoading(false);
           
           // 更新视频列表
-        
-          
+          try {
+            const urlList = await getAIVideoList();
+            console.log('获取到最新视频列表:', urlList);
+            setVideoList(urlList || []); // 更新视频列表到store中
+          } catch (listErr) {
+            console.error('获取视频列表失败:', listErr);
+          }
           
           stopPolling();
         } else if (task_status === "FAIL") {

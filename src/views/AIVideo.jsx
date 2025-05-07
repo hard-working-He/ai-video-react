@@ -24,35 +24,29 @@ const AIVideo = () => {
     prompt, 
     imageUrl, 
     setTaskId, 
-    setError 
+    setError,
+    videoList,
+    setVideoList 
   } = useVideoGenerationStore();
   const { isPolling, isLoading, error } = usePolling(taskId);
-  const [urlList, setUrlList] = useState([]);
   
+  // 初始加载时获取视频列表
+  useEffect(() => {
+    console.log('AIVideo 组件已挂载');
+    fetchUrlList();
+  }, []);
+
   // Function to fetch video list
   const fetchUrlList = async () => {
     try {
       const urlList = await getAIVideoList();
       console.log('获取到视频列表:', urlList);
-      setUrlList(urlList || []);
+      setVideoList(urlList || []);
     } catch (error) {
-      setUrlList([]);
+      console.error('获取视频列表失败:', error);
+      setVideoList([]);
     }
-  };  
-  
-  // Initial fetch of video list
-  useEffect(() => {
-    console.log('AIVideo 组件已挂载');
-    fetchUrlList();
-  }, []);
-  
-  // Refresh video list when a new video is successfully generated
-  useEffect(() => {
-    if (aiVideoUrl && !isPolling && !isLoading) {
-      // When polling completes and we have a video URL, refresh the list
-      fetchUrlList();
-    }
-  }, [aiVideoUrl, isPolling, isLoading]);
+  };
 
   return (
     <AIVideoProvider>
@@ -64,7 +58,7 @@ const AIVideo = () => {
           
           <Content className="video-section" style={{ padding: '20px' }}>
             <div className="video-list-wrapper">
-              <VideoList urlList={urlList || []} />
+              <VideoList urlList={videoList || []} />
             </div>
             <div className="input-section">
               <InputContainer />

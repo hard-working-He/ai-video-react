@@ -69,7 +69,6 @@ const InputContainer = () => {
         </Col>
       </Row>
 
-      {storeError && <div className="error-message">{storeError}</div>}
     </div>
   );
 };

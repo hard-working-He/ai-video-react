@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useCallback } from 'react';
 import { useVideoGenerationStore } from '../store/videoGeneration';
-import { generateAIVideo, addAIVideo } from '../api/aiVideo';
+import { generateAIVideo, addAIVideo, getAIVideoList } from '../api/aiVideo';
 import { downloadTool } from '../utils/downloadVideo';
 import { useBasicSettingsStore } from '../store/videoParams';
+
 // 创建 Context
 const AIVideoContext = createContext(null);
 
@@ -13,7 +14,8 @@ export const AIVideoProvider = ({ children }) => {
     imageUrl, 
     setTaskId, 
     setError,
-    setPrompt 
+    setPrompt,
+    setVideoList
   } = useVideoGenerationStore();
   const {  frameRate, outputMode, duration } = useBasicSettingsStore();
   // 生成视频方法
@@ -34,6 +36,15 @@ export const AIVideoProvider = ({ children }) => {
         creation_params: prompt,
         status: 'PROCESSING'
       });
+       // 更新视频列表
+       try {
+        const urlList = await getAIVideoList();
+        console.log('获取到最新视频列表:', urlList);
+        setVideoList(urlList || []); // 更新视频列表到store中
+      } catch (listErr) {
+        console.error('获取视频列表失败:', listErr);
+      }
+      
       
       setError(null);
       // 清空输入框

@@ -14,6 +14,7 @@ export const useVideoGenerationStore = create(
       aiVideoUrl: '',//ai视频url
       error: null,//错误信息
       pollingTimer: null,//轮询定时器
+      videoList: [], // 视频列表
 
       setTaskId: (taskId) => set({ taskId }),
       setIsPolling: (isPolling) => set({ isPolling }),
@@ -25,6 +26,7 @@ export const useVideoGenerationStore = create(
       setAiVideoUrl: (aiVideoUrl) => set({ aiVideoUrl }),
       setError: (error) => set({ error }),
       setPollingTimer: (pollingTimer) => set({ pollingTimer }),
+      setVideoList: (videoList) => set({ videoList }), // 设置视频列表
 
       reset: () => set({
         taskId: null,
@@ -35,6 +37,7 @@ export const useVideoGenerationStore = create(
         aiVideoUrl: null,
         error: null,
         pollingTimer: null,
+        videoList: [], // 重置时清空视频列表
       }),
     }),
     {
