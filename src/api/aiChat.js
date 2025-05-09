@@ -16,29 +16,27 @@ import { post } from './request';
 //SSE流式输出
 
 export const createAIChatTask = async () => {
-  const url = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
+  const url = 'https://open.bigmodel.cn/api/paas/v4/assistant';
   
   /* if (!params.model || !params.messages) {
     throw new Error('model和messages不能为空');
   } */
   const params = {
-    model: 'glm-4-air', 
+    assistant_id: '659e54b1b8006379b4b2abd6',
+    model: 'glm-4-assistant', 
     stream: 'true',
-    messages: [
+    messages:[
       {
-        role: 'user',
-        content: '2025年4月重要财经事件 政策变化 市场数据'
+          "role": "user",
+          "content": [{
+              "type": "text",
+              "text": "请综合分析2025年Q1中东地缘政治冲突对全球能源市场的影响，结合原油价格波动、主要产油国政策调整及欧洲能源替代方案数据，生成带时间轴的风险评估报告，并标注期货市场实时反应与关键机构（如IEA）的应对建议。"
+          }]
       }
-    ],
-    tools: [{
-      type: 'web_search',
-      web_search: {
-        enable: true,
-        search_engine: 'search_pro_sogou',
-        "search_result": true,
-        search_prompt: '你是一名财经分析师，请用简洁的语言总结网络搜索中的关键信息，按重要性排序并标注来源日期。当前日期是2025年 4 月 11 日'
-      }
-    }]
+  ],
+  stream: true,
+  attachments: null,
+  metadata: null
   };
 
 
@@ -75,25 +73,39 @@ export const createAIChatTask = async () => {
           
           for (const line of lines) {
             if (line.startsWith('data: ')) {
-              const data = line.slice(6); // 移除 'data: ' 前缀
+              const data = line.slice(6);
               if (data === '[DONE]') return;
               try {
                 const parsed = JSON.parse(data);
-                // 获取增量内容
-                const content = parsed.choices[0]?.delta?.content || '';
-                currentMessage += content;
-                // 返回完整的数据结构，包括当前累积的消息
-                yield {
-                  ...parsed,
-                  choices: [{
-                    ...parsed.choices[0],
-                    delta: {
-                      ...parsed.choices[0].delta,
-                      content,
-                    },
-                    message: currentMessage // 添加累积的完整消息
-                  }]
-                };
+                let content = '';
+                
+                // 处理工具调用响应
+                if (parsed.choices[0]?.delta?.tool_calls) {
+                  const toolCalls = parsed.choices[0].delta.tool_calls;
+                  for (const tool of toolCalls) {
+                    if (tool.type === 'web_browser' && tool.web_browser?.outputs) {
+                      // 将搜索结果格式化为 Markdown
+                      content = tool.web_browser.outputs
+                        .map(output => {
+                          return `### [${output.title}](${output.link})\n\n${output.content}\n\n---\n`;
+                        })
+                        .join('\n');
+                    }
+                  }
+                } 
+                // 处理普通文本响应
+                else if (parsed.choices[0]?.delta?.content) {
+                  content = parsed.choices[0].delta.content;
+                }
+
+                if (content) {
+                  yield {
+                    choices: [{
+                      delta: { content },
+                      message: content
+                    }]
+                  };
+                }
               } catch (e) {
                 console.warn('解析SSE数据失败:', e);
               }

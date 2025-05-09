@@ -1,0 +1,104 @@
+@markdownColor: rgb(102, 102, 102);
+@codeBlockBg: rgb(252, 252, 252);
+@codeHeaderBg: rgb(245, 245, 245);
+.markdownWrapper {
+  width: 100%;
+  line-height: 20px;
+  border: 1px solid rgb(245, 245, 245);
+  border-radius: 16px;
+  padding: 12px 14px;
+  color: @markdownColor;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.markdownWrapper ul,
+.markdownWrapper ol {
+  padding-left: 1.5em;
+}
+
+.markdownWrapper ul li,
+.markdownWrapper ol li {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.markdownWrapper ul li::marker,
+.markdownWrapper ol li::marker {
+  /* 分点的样式 */
+  color: rgb(102, 102, 102);
+  font-weight: 500;
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+}
+
+.markdownWrapper pre {
+  width: 100%;
+}
+
+.markdownWrapper code {
+  background-color: rgba(255, 255, 255, 0);
+  overflow-x: auto;
+  font-family: PingFang SC;
+  font-weight: 500;
+  font-size: 14px;
+  color: rgb(102, 102, 102);
+  line-height: 24px;
+  letter-spacing: 0;
+  padding: 2px 4px;
+}
+
+.markdownWrapper a {
+  word-break: break-word;
+  color: rgb(74, 131, 255);
+}
+
+.markdownWrapper img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 8px 0;
+  border-radius: 16px;
+}
+
+.markdownWrapper .codeBlock {
+  position: relative;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  word-break: break-word;
+  background-color: @codeBlockBg;
+  padding: 8px;
+  max-width: 100%;
+  overflow-x: auto;
+  padding-top: 48px;
+  border-radius: 16px;
+}
+
+.markdownWrapper .codeBlock .codeBlockHeader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 42px;
+  background-color: @codeHeaderBg;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.markdownWrapper .codeBlock .lang,
+.markdownWrapper .codeBlock .copy {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  line-height: 24px;
+  font-family: PingFang SC;
+}
+
+.markdownWrapper .codeBlock .copy {
+  cursor: pointer;
+}

@@ -35,7 +35,7 @@ const SiderBar = () => {
                 
             >
                 <Space className="logo-container" align="center">
-                    <Avatar src="/logo.png" size={32} alt="Logo" />
+                    <Avatar src="./src/assets/android-chrome-192x192.png" size={32} alt="Logo" />
                     <Typography.Text strong className="logo-text">FULLKIT</Typography.Text>
                 </Space>
 
