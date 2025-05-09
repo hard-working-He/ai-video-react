@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import { SendOutlined } from "@ant-design/icons";
 import styles from "./index.module.css"
-const InputBox = ({searchParams, setSearchParams}) => {
+const InputBox = ({searchParams, setSearchParams, handleClick}) => {
     return (
       <div className={styles.searchInputBox}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -23,6 +23,7 @@ const InputBox = ({searchParams, setSearchParams}) => {
               size="large"
               icon={<SendOutlined />}
               className={styles.sendButton}
+              onClick={handleClick}
             />
           </div>
         </div>
