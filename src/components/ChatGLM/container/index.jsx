@@ -4,6 +4,7 @@ import bgVideo from "../../../assets/aiSearchBg.mp4";
 import InputBox from '../InputBox';
 import { useSearchStore } from '../../../store/useSearch';
 import { createAIChatTask } from '../../../api/aiChat';
+
 const AISearchFrontpage = ({ isDarkMode = false, triggerSearch, fileList = [] }) => {
   const { searchParams, setSearchParams } = useSearchStore();
   const handleClick = async () => {
@@ -27,7 +28,7 @@ const AISearchFrontpage = ({ isDarkMode = false, triggerSearch, fileList = [] })
         <div className="agent-name">AI搜索</div>
         <div className="agent-description">智能搜索，精准直达</div>
       </div>
-     
+      
       <InputBox searchParams={searchParams} setSearchParams={setSearchParams} handleClick={handleClick}/>
     </div>
   );

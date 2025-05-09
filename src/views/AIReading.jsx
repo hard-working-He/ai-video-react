@@ -1,6 +1,9 @@
+import SearchAnswer from '../components/ChatGLM/answer';
 const AIReading = () => {
     return (
-        <div>AIReading</div>
+        <div>
+            <SearchAnswer />
+        </div>
     )
 }
 

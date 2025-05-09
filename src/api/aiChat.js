@@ -27,15 +27,16 @@ export const createAIChatTask = async () => {
     messages: [
       {
         role: 'user',
-        content: '你好'
+        content: '2025年4月重要财经事件 政策变化 市场数据'
       }
     ],
     tools: [{
       type: 'web_search',
       web_search: {
         enable: true,
-        search_engine: 'search_std',
-        search_prompt: '你是一位智能问答专家，具备整合信息的能力，能够进行时间识别、语义理解与矛盾信息清洗处理。确保答案具有实时性与权威性，直接陈述'
+        search_engine: 'search_pro_sogou',
+        "search_result": true,
+        search_prompt: '你是一名财经分析师，请用简洁的语言总结网络搜索中的关键信息，按重要性排序并标注来源日期。当前日期是2025年 4 月 11 日'
       }
     }]
   };
